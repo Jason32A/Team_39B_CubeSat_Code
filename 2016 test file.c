@@ -12,25 +12,6 @@ int JoyThresh = 10; // This variable controls the size of the deadzone for the j
 
 #include "Vex_Competition_Includes.c"
 
-/**
-*
-* mapJoyDrive maps the joysticks to the motor output and keeps them constrained to the threshold for the joysticks
-* @param TVexJoysticks takes a joystick channel as input
-* @param tMotor output takes a motor number as input
-* Commented out in favor of more modular version down below
-*
-*/
-/*
-void mapJoyDrive(TVexJoysticks input, tMotor output){
-		if (abs(vexRT[input]) > JoyThresh)
-	 	{
-	 		motor[output] = vexRT[input];
-		}
-		else
-		{
-			motor[output] = 0;
-		}
-}
 
 /**
 *
@@ -83,13 +64,7 @@ task usercontrol()
 {
 	while (true)
 	{
-/*
-		mapJoyDrive(Ch2,RightBack);
-		mapJoyDrive(Ch2,RightFront);
 
-		mapJoyDrive(Ch3,LeftBack);
-		mapJoyDrive(Ch3,LeftFront);
-		*/
 		DriveControl(mapJoyInt(Ch3),mapJoyInt(Ch2));
 	}
 }
