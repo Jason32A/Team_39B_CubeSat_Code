@@ -25,6 +25,15 @@ int joyThresh = 10; // This variable controls the size of the deadzone for the j
 *
 */
 
+int mapJoyInt (TVexJoysticks input)
+{
+    if (abs(vexRT[input]) > joyThresh)
+    {
+        return vexRT[input];
+    }
+    return 0;
+}
+
 void driveControl (int leftPower, int rightPower)
 {
 	motor[LeftBack] = leftPower;
@@ -33,15 +42,17 @@ void driveControl (int leftPower, int rightPower)
 	motor[RightFront] = rightPower;
 }
 
-void armControl (){
-	int power = 0;
-	if(vexRT[Btn6D]){
-		power = -128;
-	}
-	else if(vexRT[Btn6U]){
-		power = 127;
-	}
+int mapButtonInt(){
+    if(vexRT[Btn6D]){
+        return -128;
+    }
+    else if(vexRT[Btn6U]){
+        return 127;
+    }
+    return 0;
+}
 
+void armControl (int power){
 	motor[RightY] = power;
 	motor[LeftY] = power;
 	motor[RightTop] = power;
@@ -67,15 +78,6 @@ void resetMotors(){
 *
 */
 
-int mapJoyInt (TVexJoysticks input)
-{
-	if (abs(vexRT[input]) > joyThresh)
-	{
-		return vexRT[input];
-	}
-	return 0;
-}
-
 //Divider for readability
 
 void pre_auton()
@@ -89,6 +91,7 @@ task autonomous()
 {
     resetMotors();
     driveControl(127,127);
+    armControl(127);
     wait1MSec(500);
     resetMotors();
 }
@@ -100,8 +103,6 @@ task usercontrol()
     while (true)
 	{
 		driveControl(mapJoyInt(Ch3),mapJoyInt(Ch2));
-		armControl();
-        
-        
+		armControl(mapButtonInt());
 	}
 }
