@@ -90,9 +90,13 @@ void pre_auton()
 task autonomous()
 {
     resetMotors();
+    driveControl(-127,-127);
+    wait1MSec(400);
     driveControl(127,127);
+    wait1MSec(100);
+    driveControl(-127,-127);
     armControl(127);
-    wait1MSec(500);
+    wait1MSec(1600);
     resetMotors();
 }
 
