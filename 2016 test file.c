@@ -96,7 +96,25 @@ task autonomous()
     wait1MSec(100);
     driveControl(-127,-127);
     armControl(127);
-    wait1MSec(1600);
+    wait1MSec(1000);
+    driveControl(0,0);
+    wait1MSec(600);
+    resetMotors();
+    wait1Msec(1000);
+    armControl(-62);
+    wait1Msec(750);
+    resetMotors();
+    driveControl(127, -40);
+    wait1Msec(800);
+    resetMotors();
+    driveControl(127,127);
+    wait1Msec(1200);
+    driveControl(-127,-127);
+    wait1Msec(500);
+    driveControl(127,-127);
+    wait1Msec(200);
+    driveControl(127,127);
+    wait1Msec(750);
     resetMotors();
 }
 
